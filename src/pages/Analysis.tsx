@@ -36,37 +36,35 @@ const Analysis = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            <AnalysisCard
-              title="Voice Tremor Analysis"
-              icon={<Mic className="w-6 h-6 text-primary" />}
-              acceptedFiles=".wav,.mp3"
-              analyzeButtonText="Analyze Voice"
-              onAnalyze={async (file) => {
-                // This would call your Flask backend: POST /analyse_voice
-                console.log("Analyzing voice file:", file.name);
-                // Simulated for demo
-                setTimeout(() => {
-                  const results = ["✅ Normal Speech", "⚠️ Mild Speech Irregularity", "❗ Tremor Detected"];
-                  setVoiceResult(results[Math.floor(Math.random() * results.length)]);
-                }, 1500);
-              }}
-            />
+          <AnalysisCard
+            title="Voice Tremor Analysis"
+            icon={<Mic className="w-6 h-6 text-primary" />}
+            analyzeButtonText="Analyze Voice"
+            onAnalyze={async () => {
+              // This would call your Flask backend: POST /analyse_voice
+              console.log("Analyzing voice...");
+              // Simulated for demo
+              setTimeout(() => {
+                const results = ["✅ Normal Speech", "⚠️ Mild Speech Irregularity", "❗ Tremor Detected"];
+                setVoiceResult(results[Math.floor(Math.random() * results.length)]);
+              }, 1500);
+            }}
+          />
 
-            <AnalysisCard
-              title="Hand Tremor Analysis"
-              icon={<Hand className="w-6 h-6 text-primary" />}
-              acceptedFiles=".csv"
-              analyzeButtonText="Analyze Movement"
-              onAnalyze={async (file) => {
-                // This would call your Flask backend: POST /process_vitals
-                console.log("Analyzing movement file:", file.name);
-                // Simulated for demo
-                setTimeout(() => {
-                  const results = ["✅ Normal Motion", "⚠️ Mild Irregularity", "❗ Tremor Pattern Detected"];
-                  setHandResult(results[Math.floor(Math.random() * results.length)]);
-                }, 1500);
-              }}
-            />
+          <AnalysisCard
+            title="Hand Tremor Analysis"
+            icon={<Hand className="w-6 h-6 text-primary" />}
+            analyzeButtonText="Analyze Movement"
+            onAnalyze={async () => {
+              // This would call your Flask backend: POST /process_vitals
+              console.log("Analyzing movement...");
+              // Simulated for demo
+              setTimeout(() => {
+                const results = ["✅ Normal Motion", "⚠️ Mild Irregularity", "❗ Tremor Pattern Detected"];
+                setHandResult(results[Math.floor(Math.random() * results.length)]);
+              }, 1500);
+            }}
+          />
           </div>
 
           {finalRisk && (

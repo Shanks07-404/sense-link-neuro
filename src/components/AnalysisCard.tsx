@@ -8,45 +8,25 @@ import { useToast } from "@/hooks/use-toast";
 interface AnalysisCardProps {
   title: string;
   icon: React.ReactNode;
-  acceptedFiles: string;
   analyzeButtonText: string;
-  onAnalyze?: (file: File) => Promise<void>;
+  onAnalyze?: () => Promise<void>;
 }
 
 export const AnalysisCard = ({
   title,
   icon,
-  acceptedFiles,
   analyzeButtonText,
   onAnalyze,
 }: AnalysisCardProps) => {
-  const [file, setFile] = useState<File | null>(null);
   const [result, setResult] = useState<string>("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const { toast } = useToast();
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0];
-    if (selectedFile) {
-      setFile(selectedFile);
-      setResult("");
-    }
-  };
-
   const handleAnalyze = async () => {
-    if (!file) {
-      toast({
-        title: "No file selected",
-        description: "Please select a file to analyze",
-        variant: "destructive",
-      });
-      return;
-    }
-
     setIsAnalyzing(true);
     try {
       if (onAnalyze) {
-        await onAnalyze(file);
+        await onAnalyze();
       }
       // Simulated result for demo
       const mockResults = [
@@ -83,26 +63,16 @@ export const AnalysisCard = ({
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
-        <div className="space-y-3">
-          <label className="text-sm font-medium text-foreground">
-            Upload File ({acceptedFiles})
-          </label>
-          <div className="flex gap-2">
-            <Input
-              type="file"
-              accept={acceptedFiles}
-              onChange={handleFileChange}
-              className="flex-1"
-            />
-            <Button
-              onClick={handleAnalyze}
-              disabled={!file || isAnalyzing}
-              className="gap-2"
-            >
-              <Upload className="w-4 h-4" />
-              {isAnalyzing ? "Analyzing..." : analyzeButtonText}
-            </Button>
-          </div>
+        <div>
+          <Button
+            onClick={handleAnalyze}
+            disabled={isAnalyzing}
+            className="gap-2 w-full"
+            size="lg"
+          >
+            <Upload className="w-4 h-4" />
+            {isAnalyzing ? "Analyzing..." : analyzeButtonText}
+          </Button>
         </div>
 
         {result && (
@@ -114,7 +84,7 @@ export const AnalysisCard = ({
 
         <div className="aspect-video bg-accent/30 rounded-lg border-2 border-dashed border-border flex items-center justify-center">
           <p className="text-sm text-muted-foreground">
-            {result ? "Graph visualization placeholder" : "Upload a file to see analysis visualization"}
+            {result ? "Graph visualization placeholder" : "Click analyze to see visualization"}
           </p>
         </div>
       </CardContent>

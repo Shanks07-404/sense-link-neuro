@@ -10,6 +10,7 @@ import { VitalsCard } from "@/components/VitalsCard";
 import { PrescriptionCard } from "@/components/PrescriptionCard";
 
 const dummyPatients = [
+  { id: "0", name: "Vrushank Tipnis" },
   { id: "1", name: "Riya Mehta" },
   { id: "2", name: "Aarav Shah" },
   { id: "3", name: "Sara Ali" },
@@ -18,6 +19,7 @@ const dummyPatients = [
 ];
 
 const patientData = {
+  "0": { name: "Vrushank Tipnis", age: 28, gender: "Male", lastVisit: "2025-01-13" },
   "1": { name: "Riya Mehta", age: 62, gender: "Female", lastVisit: "2025-01-10" },
   "2": { name: "Aarav Shah", age: 58, gender: "Male", lastVisit: "2025-01-09" },
   "3": { name: "Sara Ali", age: 65, gender: "Female", lastVisit: "2025-01-08" },
@@ -26,6 +28,7 @@ const patientData = {
 };
 
 const vitalsData = {
+  "0": { weight: "72 kg", height: "178 cm", bp: "118/76", o2: "98%", heartRate: "68 bpm" },
   "1": { weight: "65 kg", height: "162 cm", bp: "120/80", o2: "98%", heartRate: "72 bpm" },
   "2": { weight: "78 kg", height: "175 cm", bp: "118/75", o2: "97%", heartRate: "68 bpm" },
   "3": { weight: "70 kg", height: "158 cm", bp: "125/82", o2: "96%", heartRate: "75 bpm" },
@@ -34,7 +37,7 @@ const vitalsData = {
 };
 
 const Dashboard = () => {
-  const [selectedPatient, setSelectedPatient] = useState<string | null>("1");
+  const [selectedPatient, setSelectedPatient] = useState<string | null>("0");
   const navigate = useNavigate();
 
   const currentPatient = selectedPatient ? patientData[selectedPatient as keyof typeof patientData] : null;
