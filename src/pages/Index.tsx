@@ -26,7 +26,7 @@ const Index = () => {
               </span>
               <br />
               <span className="text-foreground">
-                AI-Driven NeuroHealth Early Detection
+                AI-Driven Parkinson's Early Detection
               </span>
             </h1>
             
